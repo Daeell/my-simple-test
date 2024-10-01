@@ -11,7 +11,7 @@ on:
       - "az-func-time-test.yml"
     branches:
       - main
-  pull_requests:
+  pull_request:
     paths:
       - "az-func-time-test/**"
       - "az-func-time-test.yml"
