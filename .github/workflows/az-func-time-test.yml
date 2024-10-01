@@ -6,12 +6,20 @@ name: Build and deploy Python project to Azure Function App - test-app-0924
 
 on:
   push:
+    paths:
+      - "az-func-time-test/**"
+      - "az-func-time-test.yml"
     branches:
       - main
+  pull_requests:
+    paths:
+      - "az-func-time-test/**"
+      - "az-func-time-test.yml"
+
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'az-func-time-test' # set this to the path to your web app project, defaults to the repository root
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.' # set this to the path to your web app project, defaults to the repository root
   PYTHON_VERSION: '3.11' # set this to the python version to use (supports 3.6, 3.7, 3.8)
 
 jobs:
@@ -28,11 +36,10 @@ jobs:
 
       - name: Create and start virtual environment
         run: |
+          cd az-func-time-test
           python -m venv venv
           source venv/bin/activate
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+          pip install -r requirements.txt
 
       # Optional: Add step to run tests here
 
